@@ -11,4 +11,4 @@ COPY index.js ./
 
 EXPOSE ${PORT}
 
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
