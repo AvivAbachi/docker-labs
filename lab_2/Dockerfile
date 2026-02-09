@@ -9,6 +9,6 @@ RUN npm ci
 
 COPY index.js .enb ./
 
-EXPOSE 3000
+EXPOSE ${PORT}
 
 CMD [ "node", "index.js" ]
