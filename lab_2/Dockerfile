@@ -7,7 +7,7 @@ COPY package.json package-lock.json  ./
 
 RUN npm ci
 
-COPY index.js .enb ./
+COPY index.js ./
 
 EXPOSE ${PORT}
 
