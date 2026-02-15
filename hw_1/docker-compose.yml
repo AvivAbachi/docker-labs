@@ -1,0 +1,29 @@
+services:
+  sv1:
+    environment:
+      APP_ID: 1
+    build: .
+    image: node-logger-server:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - logs:/app/logs
+
+  sv2:
+    environment:
+      APP_ID: 2
+    image: node-logger-server:latest
+    restart: unless-stopped
+    ports:
+      - 3001:3000
+    volumes:
+      - logs:/app/logs
+
+volumes:
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/d/logs/ # Save on host location

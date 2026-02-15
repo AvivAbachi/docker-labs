@@ -1,0 +1,35 @@
+{
+  "appenders": {
+    "all": {
+      "type": "file",
+      "filename": "logs/all.log",
+      "layout": {
+        "type": "pattern",
+        "pattern": "[%d] [%p] [%X{appID}] - %m%n"
+      }
+    },
+    "app": {
+      "type": "multiFile",
+      "base": "logs/",
+      "property": "appID",
+      "extension": ".log",
+      "layout": {
+        "type": "pattern",
+        "pattern": "[%d] [%p] [%X{appID}] - %m%n"
+      }
+    },
+    "out": {
+      "type": "stdout",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%[[%d] [%p] [%X{appID}]%] - %m%n"
+      }
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": ["all", "app", "out"],
+      "level": "Debug"
+    }
+  }
+}
