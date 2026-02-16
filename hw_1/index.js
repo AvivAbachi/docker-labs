@@ -1,6 +1,6 @@
 import "dotenv";
-import log4js from "log4js";
 import http from "http";
+import log4js from "log4js";
 
 const appID = `app-${process.env.APP_ID?.toLowerCase() || "none"}`;
 const port = 3000;
@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.statusCode = 200;
-  const ip = req?.socket?.remoteAddress;
+  const ip = req?.socket?.localAddress;
 
   if (req.url === "/") {
     res.end(
