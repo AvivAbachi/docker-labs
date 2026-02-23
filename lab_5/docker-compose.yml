@@ -7,6 +7,11 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 3306:3306
     image: mysql:latest
@@ -17,7 +22,8 @@ services:
       - lab-5-network
   sr:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     build: .
     image: lab-5
     ports:
