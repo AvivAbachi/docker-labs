@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  db:
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    image: mysql:latest
+    restart: unless-stopped
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - lab-5-network
+  sr:
+    depends_on:
+      - db
+    build: .
+    image: lab-5
+    ports:
+      - 3000:3000
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+    networks:
+      - lab-5-network
+
+networks:
+  lab-5-network:
+    driver: bridge
+
+volumes:
+  mysql:
+    name: mysql
